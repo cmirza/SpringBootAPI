@@ -36,4 +36,32 @@ public class UserController {
         User savedUser = userRepository.save(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+        System.out.println("Updating user with id: " + id);
+        System.out.println("Updated user details: " + updatedUser);
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setName(updatedUser.getName());
+                    user.setEmail(updatedUser.getEmail());
+                    User savedUser = userRepository.save(user);
+                    return new ResponseEntity<>(savedUser, HttpStatus.OK);
+                })
+                .orElseGet(() -> {
+                    updatedUser.setId(id);
+                    User savedUser = userRepository.save(updatedUser);
+                    return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+                });
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    userRepository.deleteById(id);
+                    return new ResponseEntity<>(HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }
