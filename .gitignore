@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Maven-specific generated files
+pom.xml.backup
+release.properties
+*.jar
+*.war
+*.ear
+/.mvn/wrapper/
