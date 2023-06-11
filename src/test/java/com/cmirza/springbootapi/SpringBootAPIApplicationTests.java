@@ -1,10 +1,10 @@
-package com.cmirza.springbootmongodbapi;
+package com.cmirza.springbootapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringbootMongodbApiApplicationTests {
+class SpringBootAPIApplicationTests {
 
 	@Test
 	void contextLoads() {

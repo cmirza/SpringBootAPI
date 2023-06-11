@@ -1,7 +1,7 @@
-package com.cmirza.springbootmongodbapi.controller;
+package com.cmirza.springbootapi.controller;
 
-import com.cmirza.springbootmongodbapi.model.User;
-import com.cmirza.springbootmongodbapi.repository.UserRepository;
+import com.cmirza.springbootapi.model.User;
+import com.cmirza.springbootapi.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -63,5 +62,15 @@ public class UserController {
                     return new ResponseEntity<>(HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/search")
+    public Page<User> searchUsers(@RequestParam String keyword, @RequestParam Map<String, String> params) {
+        int page = Integer.parseInt(params.getOrDefault("page", "0"));
+        int size = Integer.parseInt(params.getOrDefault("size", "5"));
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return userRepository.search(keyword, pageable);
     }
 }

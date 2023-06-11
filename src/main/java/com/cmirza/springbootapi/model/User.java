@@ -1,4 +1,4 @@
-package com.cmirza.springbootmongodbapi.model;
+package com.cmirza.springbootapi.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

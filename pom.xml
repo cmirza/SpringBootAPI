@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cmirza</groupId>
-	<artifactId>springboot-mongodb-api</artifactId>
+	<artifactId>springboot-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-mongodb-api</name>
 	<description>learning project for java springboot</description>
@@ -37,7 +37,6 @@
 			<artifactId>webjars-locator-core</artifactId>
 			<version>0.46</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
