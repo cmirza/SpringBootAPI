@@ -32,6 +32,9 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        if (user.getName() == null || user.getEmail() == null || user.getPassword() == null) {
+            throw new IllegalArgumentException("Name, email and password are required.");
+        }
         User savedUser = userRepository.save(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
