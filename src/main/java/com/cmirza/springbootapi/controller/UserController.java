@@ -2,6 +2,7 @@ package com.cmirza.springbootapi.controller;
 
 import com.cmirza.springbootapi.model.User;
 import com.cmirza.springbootapi.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,18 +32,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        if (user.getName() == null || user.getEmail() == null || user.getPassword() == null) {
-            throw new IllegalArgumentException("Name, email and password are required.");
-        }
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
+        StringBuilder errorMessage = new StringBuilder();
+
         User savedUser = userRepository.save(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
-        System.out.println("Updating user with id: " + id);
-        System.out.println("Updated user details: " + updatedUser);
         return userRepository.findById(id)
                 .map(user -> {
                     user.setName(updatedUser.getName());
